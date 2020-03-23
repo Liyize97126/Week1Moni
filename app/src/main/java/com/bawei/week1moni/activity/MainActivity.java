@@ -7,6 +7,7 @@ import com.bawei.week1moni.R;
 import com.bawei.week1moni.adapter.MyListAdapter;
 import com.bawei.week1moni.base.BaseActivity;
 import com.bawei.week1moni.bean.BaseResultBean;
+import com.bawei.week1moni.bean.ResultBean;
 import com.bawei.week1moni.presenter.NewsPresenter;
 import com.bawei.week1moni.util.DataCall;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -15,7 +16,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 /**
  * 主界面
  */
-public class MainActivity extends BaseActivity implements DataCall {
+public class MainActivity extends BaseActivity implements DataCall<ResultBean> {
     //定义
     private PullToRefreshListView pulltolist;
     private int page = 1;
@@ -63,7 +64,7 @@ public class MainActivity extends BaseActivity implements DataCall {
     }
     //方法实现
     @Override
-    public void success(BaseResultBean baseResultBean) {
+    public void success(BaseResultBean<ResultBean> baseResultBean) {
         //关闭上下拉动画
         pulltolist.onRefreshComplete();
         //判断
