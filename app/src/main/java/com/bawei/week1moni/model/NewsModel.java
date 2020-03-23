@@ -16,10 +16,14 @@ public class NewsModel {
     public static BaseResultBean<ResultBean> getInstance(int page,int pageSize) {
         //联网请求
         String json = NetUtil.getNetUtil().doGet("http://47.94.132.125/baweiapi/gank_android?page=" + page + "&pageSize=" + pageSize);
-        //泛型类处理
-        Type type = new TypeToken<BaseResultBean<ResultBean>>() {
-        }.getType();
-        //解析并返回数据
-        return new Gson().fromJson(json, type);
+        //判断是否非空
+        if(json != null){
+            //泛型类处理
+            Type type = new TypeToken<BaseResultBean<ResultBean>>() {
+            }.getType();
+            //解析并返回数据
+            return new Gson().fromJson(json, type);
+        }
+        return null;
     }
 }

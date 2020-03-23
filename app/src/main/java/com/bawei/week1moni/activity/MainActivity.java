@@ -55,18 +55,22 @@ public class MainActivity extends BaseActivity implements DataCall {
         //开始加载
         newsPresenter.request(page,pageSize);
     }
+    //释放资源
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        newsPresenter.destroy();
+    }
     //方法实现
     @Override
     public void success(BaseResultBean baseResultBean) {
         //关闭上下拉动画
         pulltolist.onRefreshComplete();
         //判断
-        if(baseResultBean.getCode() == 200 && baseResultBean.getMsg().equals("请求成功")){
-            Toast.makeText(MainActivity.this,"请求成功！",Toast.LENGTH_LONG).show();
+        if(baseResultBean.getCode() == 200){
+            Toast.makeText(MainActivity.this,baseResultBean.getMsg(),Toast.LENGTH_LONG).show();
             myListAdapter.add(baseResultBean.getResult());
             myListAdapter.notifyDataSetChanged();
-        } else if(baseResultBean.getCode() == 200 && baseResultBean.getMsg().equals("请求页码没数据")){
-            Toast.makeText(MainActivity.this,"没有更多数据了！",Toast.LENGTH_LONG).show();
         }
     }
     @Override
